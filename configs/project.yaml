@@ -1,0 +1,8 @@
+project:
+  name: "CineMatch Lab"
+  random_seed: 42
+
+data:
+  dataset: "MovieLens 100K"
+  raw_directory: "data/raw/ml-100k"
+
