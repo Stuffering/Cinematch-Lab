@@ -7,9 +7,9 @@ systems, neural networks, and reinforcement learning in one coherent product.
 
 ## Current Stage
 
-Stage 1 establishes the reproducible project environment, package structure,
-dataset download, tests, and minimal Streamlit application. Recommendation
-algorithms are intentionally not implemented yet.
+Stage 2 has added reusable MovieLens loading, validation, EDA profiling,
+cleaning, chronological train/validation/test splitting, and processed data
+generation. Recommendation algorithms are intentionally not implemented yet.
 
 ## Environment Setup
 
