@@ -28,3 +28,12 @@
   MovieLens 100K dataset.
 - Verified the profile script on the real dataset: 100,000 ratings, 943 users,
   and 1,682 movies.
+
+## 0.2.2 - 2026-07-16
+
+- Added reusable cleaning helpers for ratings, users, movies, and combined
+  MovieLens tables.
+- Added chronological rating split helpers to prevent future data leakage.
+- Fixed the default modeling split at 60% train, 20% validation, and 20% test.
+- Added `scripts/prepare_data.py` to regenerate processed CSV files under
+  `data/processed/`.

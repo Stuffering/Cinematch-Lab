@@ -21,6 +21,10 @@ through a repeatable script such as `scripts/profile_data.py`.
 
 Keep notebook exploration local. Move only reusable logic into `src`.
 
+Add reusable cleaning and chronological splitting helpers before modeling.
+Generated processed data should be reproducible from scripts and should not be
+committed to Git.
+
 ## Student-Owned Tasks
 
 1. Create `src/cinematch/eda.py`.
@@ -32,6 +36,9 @@ Keep notebook exploration local. Move only reusable logic into `src`.
 6. Create `scripts/profile_data.py` to load, validate, profile, and print the
    key summary values.
 7. Add unit tests with small fake DataFrames before using the full dataset.
+8. Implement table cleaners for ratings, users, movies, and combined cleaning.
+9. Implement chronological ratings splits to prevent future data leakage.
+10. Create `scripts/prepare_data.py` to generate processed CSV files.
 
 ## Suggested Metrics
 
@@ -83,6 +90,24 @@ HINT: For genre columns, reuse the movie genre column names already defined in
 HINT: For tests, use tiny fake DataFrames. Do not make every test depend on the
 full MovieLens dataset.
 
+## Cleaning Rules
+
+- Ratings: remove exact duplicate rating events, add `rated_at`, sort by
+  `timestamp`, `user_id`, and `item_id`, then reset the index.
+- Users: remove duplicate `user_id` values, sort by `user_id`, then reset the
+  index.
+- Movies: remove duplicate `movie_id` values, sort by `movie_id`, then reset
+  the index.
+
+## Splitting Rules
+
+- Use chronological splits based on `timestamp` to avoid future data leakage.
+- Default modeling split is fixed at 60% train, 20% validation, and 20% test.
+- `validation` is used for model selection and tuning; `test` is reserved for
+  final evaluation.
+- `scripts/prepare_data.py` writes processed CSV files to `data/processed/`.
+  These files are generated artifacts and are ignored by Git.
+
 ## References
 
 REFERENCE: MovieLens schema and dataset facts:
@@ -110,6 +135,7 @@ Run these before committing this stage:
 ```bash
 python scripts/validate_data.py
 python scripts/profile_data.py
+python scripts/prepare_data.py
 python -m pytest -q
 python -m ruff check .
 ```
