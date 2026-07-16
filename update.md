@@ -37,3 +37,9 @@
 - Fixed the default modeling split at 60% train, 20% validation, and 20% test.
 - Added `scripts/prepare_data.py` to regenerate processed CSV files under
   `data/processed/`.
+
+## 0.2.3 - 2026-07-16
+
+- Added `docs/stage_01_initialization.md` so stage documentation starts from
+  project initialization.
+- Updated `README.md` to reflect the current Stage 2 data preparation status.
