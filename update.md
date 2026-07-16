@@ -19,3 +19,12 @@
 - Added unit tests for valid tables and common invalid data cases.
 - Added `scripts/validate_data.py` as a command-line validation entry point.
 - Kept notebooks as local learning drafts and ignored them from Git.
+
+## 0.2.1 - 2026-07-16
+
+- Added EDA helpers for ratings, users, movies, and combined data profiling.
+- Added unit tests for table-level EDA summaries and combined profile output.
+- Added `scripts/profile_data.py` to print a JSON profile for the local
+  MovieLens 100K dataset.
+- Verified the profile script on the real dataset: 100,000 ratings, 943 users,
+  and 1,682 movies.
