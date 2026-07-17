@@ -6,9 +6,6 @@ from cinematch.data import MOVIE_COLUMNS
 
 def summarize_ratings(ratings: pd.DataFrame) -> dict[str, object]:
     """Summarize the MovieLens ratings table."""
-    # TODO(student): Return basic rating table statistics.
-    # HINT: Start with row count, unique users, unique items, rating min/max/mean.
-    # REFERENCE: docs/stage_02_eda_cleaning.md
     rating_distribution = ratings["rating"].value_counts().sort_index().to_dict()
     ratings_per_user = ratings.groupby("user_id").size()
     ratings_per_item = ratings.groupby("item_id").size()

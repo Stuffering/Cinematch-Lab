@@ -61,3 +61,66 @@
   evaluation.
 - Recorded baseline results; `bias` is the strongest current baseline with
   validation RMSE of 1.089829 and test RMSE of 1.032749.
+
+## 0.4.0 - 2026-07-17
+
+- Started Stage 04 item-based collaborative filtering.
+- Added the collaborative filtering learning scaffold with user-item matrix,
+  user-centering, cosine similarity, item similarity matrix, and top-similar
+  item TODOs.
+- Added skipped tests that define the expected behavior for each Stage 04
+  learning step.
+- Added Stage 04 documentation to keep the next modeling phase explicit and
+  incremental.
+
+## 0.4.1 - 2026-07-17
+
+- Completed the first item-based collaborative filtering utilities.
+- Added real-data similar movie lookup with a minimum common-user overlap
+  threshold to reduce noisy one-user matches.
+- Added script tests for similar movie lookup output and unknown item handling.
+
+## 0.4.2 - 2026-07-17
+
+- Added item-based user recommendations from movies a user rated highly.
+- Added a real-data recommendation script that prints unseen movie titles for a
+  selected user.
+- Documented the first recommendation score as a simple similarity-weighted
+  ranking score rather than a fully evaluated rating prediction model.
+
+## 0.4.3 - 2026-07-17
+
+- Added item-based rating prediction for a specific user/movie pair.
+- Tested prediction behavior for similar centered ratings and fallback to the
+  user's mean rating when no reliable similarity evidence is available.
+- Documented the prediction formula as user mean plus a similarity-weighted
+  centered preference adjustment.
+
+
+## 0.4.4 - 2026-07-17
+
+- Added shared item-pair similarity caching during batch item-CF prediction.
+- Added cold-start fallback behavior for batch validation rows missing from the
+  training matrix.
+- Added a quick evaluation mode with `--max-rows` for iterative local checks.
+- Verified a 2,000-row validation sample with RMSE 1.095493 and MAE 0.897054.
+
+## 0.4.5 - 2026-07-17
+
+- Replaced incremental similarity caching with precomputed item similarity and
+  common-user overlap matrices for faster batch evaluation.
+- Verified full validation and test splits for item-based CF: validation RMSE
+  1.177426 / MAE 0.966152 and test RMSE 1.110922 / MAE 0.931586.
+- Confirmed item-based CF is evaluable but does not yet beat the Stage 03
+  regularized bias baseline.
+
+## 0.4.6 - 2026-07-17
+
+- Ran an item-CF parameter sweep over minimum common-user overlap and minimum
+  similarity thresholds.
+- Found the best validation setting at `min_common_users=1` and
+  `min_similarity=0.05`, with validation RMSE 1.175697 and MAE 0.966276.
+- Kept the default evaluation setting because the validation improvement did
+  not hold on the test split, where the default remained slightly better.
+- Cleaned remaining learning-marker comments from the EDA helper module before
+  closing Stage 04.
