@@ -124,3 +124,13 @@
   not hold on the test split, where the default remained slightly better.
 - Cleaned remaining learning-marker comments from the EDA helper module before
   closing Stage 04.
+
+## 0.5.0 - 2026-07-17
+
+- Started Stage 05 matrix factorization.
+- Added a latent-factor model scaffold with configuration, learned-parameter
+  placeholders, and explicit `fit` / `predict` TODOs.
+- Added skipped tests for the next learning steps: ID mappings, prediction
+  alignment, and SGD training behavior.
+- Added Stage 05 documentation connecting latent factors, dot products, loss
+  functions, regularization, and SGD to the earlier baseline and item-CF work.
