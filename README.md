@@ -7,10 +7,13 @@ systems, neural networks, and reinforcement learning in one coherent product.
 
 ## Current Stage
 
-Stage 3 has added the first rating-prediction baseline layer with RMSE/MAE,
-global mean, user mean, item mean, and bias baselines. Stage 2 already added reusable
-MovieLens loading, validation, EDA profiling, cleaning, chronological
-train/validation/test splitting, and processed data generation.
+Stage 4 added item-based collaborative filtering, including user-item
+matrices, centered rating vectors, cosine similarity, similar-movie lookup,
+user-level recommendations, and item-CF rating evaluation. Stage 3 added the
+first rating-prediction baseline layer with RMSE/MAE, global mean, user mean,
+item mean, and bias baselines. Stage 2 already added reusable MovieLens
+loading, validation, EDA profiling, cleaning, chronological train/validation/test
+splitting, and processed data generation.
 
 ## Environment Setup
 
@@ -45,6 +48,9 @@ not committed to Git.
 python -c "import cinematch; print(cinematch.__version__)"
 python -m pytest
 python -m ruff check .
+python scripts/find_similar_movies.py --item-id 50 --n 10
+python scripts/recommend_movies.py --user-id 1 --n 10
+python scripts/evaluate_item.py --eval-split valid
 python -m streamlit run app/main.py
 ```
 
