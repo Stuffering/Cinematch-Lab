@@ -43,3 +43,21 @@
 - Added `docs/stage_01_initialization.md` so stage documentation starts from
   project initialization.
 - Updated `README.md` to reflect the current Stage 2 data preparation status.
+
+## 0.3.0 - 2026-07-16
+
+- Started Stage 03 rating baseline framework.
+- Added metric, baseline model, and training script skeletons for
+  student-owned implementation.
+- Added skipped metric and baseline tests that define the expected behavior for
+  RMSE, MAE, global mean, user mean, and item mean baselines.
+
+## 0.3.1 - 2026-07-16
+
+- Implemented RMSE and MAE for rating prediction evaluation.
+- Implemented global mean, user mean, and item mean rating baselines.
+- Added a regularized user/item bias baseline as the strongest current baseline.
+- Completed baseline training script with selectable validation or test
+  evaluation.
+- Recorded baseline results; `bias` is the strongest current baseline with
+  validation RMSE of 1.089829 and test RMSE of 1.032749.
