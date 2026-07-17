@@ -7,9 +7,10 @@ systems, neural networks, and reinforcement learning in one coherent product.
 
 ## Current Stage
 
-Stage 2 has added reusable MovieLens loading, validation, EDA profiling,
-cleaning, chronological train/validation/test splitting, and processed data
-generation. Recommendation algorithms are intentionally not implemented yet.
+Stage 3 has added the first rating-prediction baseline layer with RMSE/MAE,
+global mean, user mean, item mean, and bias baselines. Stage 2 already added reusable
+MovieLens loading, validation, EDA profiling, cleaning, chronological
+train/validation/test splitting, and processed data generation.
 
 ## Environment Setup
 
