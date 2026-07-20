@@ -124,3 +124,26 @@
   not hold on the test split, where the default remained slightly better.
 - Cleaned remaining learning-marker comments from the EDA helper module before
   closing Stage 04.
+
+## 0.5.0 - 2026-07-17
+
+- Started Stage 05 matrix factorization.
+- Added a latent-factor model scaffold with configuration, learned-parameter
+  placeholders, and explicit `fit` / `predict` TODOs.
+- Added skipped tests for the next learning steps: ID mappings, prediction
+  alignment, and SGD training behavior.
+- Added Stage 05 documentation connecting latent factors, dot products, loss
+  functions, regularization, and SGD to the earlier baseline and item-CF work.
+
+## 0.5.1 - 2026-07-20
+
+- Completed the matrix factorization model with SGD training, fitted user/item
+  biases, learned latent factors, clipped rating predictions, and cold-start
+  fallback behavior.
+- Added a repeatable matrix factorization training script with configurable
+  factor count, learning rate, regularization, epochs, and quick-check row
+  limits.
+- Tuned Stage 05 on the validation split and selected `n_factors=10`,
+  `learning_rate=0.02`, `regularization=0.10`, and `n_epochs=60`.
+- Verified the final matrix factorization model on the test split with RMSE
+  1.030065 and MAE 0.828554.
