@@ -1,14 +1,13 @@
 import pandas as pd
-import pytest
 
 from cinematch.supervised import (
+    add_rating_history_features,
     build_preprocessing_feature_lists,
     build_rating_feature_table,
     split_features_and_target,
 )
 
 
-@pytest.mark.skip(reason="Stage 07 learning step: build feature table")
 def test_build_rating_feature_table_joins_user_and_movie_metadata() -> None:
     ratings = pd.DataFrame(
         {
@@ -44,7 +43,6 @@ def test_build_rating_feature_table_joins_user_and_movie_metadata() -> None:
     assert feature_table.loc[0, "Action"] == 1
 
 
-@pytest.mark.skip(reason="Stage 07 learning step: split features and target")
 def test_split_features_and_target_removes_rating_column() -> None:
     feature_table = pd.DataFrame(
         {
@@ -57,11 +55,12 @@ def test_split_features_and_target_removes_rating_column() -> None:
 
     features, target = split_features_and_target(feature_table)
 
+    assert "user_id" not in features.columns
+    assert "item_id" not in features.columns
     assert "rating" not in features.columns
     assert target.tolist() == [5]
 
 
-@pytest.mark.skip(reason="Stage 07 learning step: identify feature types")
 def test_build_preprocessing_feature_lists_separates_numeric_and_categorical() -> None:
     features = pd.DataFrame(
         {
@@ -80,3 +79,27 @@ def test_build_preprocessing_feature_lists_separates_numeric_and_categorical() -
     assert "Action" in numeric_features
     assert "gender" in categorical_features
     assert "occupation" in categorical_features
+
+
+def test_add_rating_history_features_uses_training_statistics() -> None:
+    feature_table = pd.DataFrame(
+        {
+            "user_id": [1, 2],
+            "item_id": [10, 20],
+            "rating": [5, 3],
+        }
+    )
+    train_ratings = pd.DataFrame(
+        {
+            "user_id": [1, 1, 2],
+            "item_id": [10, 20, 10],
+            "rating": [5, 3, 4],
+        }
+    )
+
+    enriched = add_rating_history_features(feature_table, train_ratings)
+
+    assert enriched.loc[0, "user_rating_count"] == 2
+    assert enriched.loc[0, "user_mean_rating"] == 4.0
+    assert enriched.loc[0, "item_rating_count"] == 2
+    assert enriched.loc[0, "item_mean_rating"] == 4.5

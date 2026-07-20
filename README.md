@@ -7,8 +7,9 @@ systems, neural networks, and reinforcement learning in one coherent product.
 
 ## Current Stage
 
-Stage 7 is starting supervised rating prediction from explicit user and
-movie features. Stage 6 added content-based recommendation from MovieLens
+Stage 7 added supervised rating prediction from explicit user and movie
+features plus training-only rating history aggregates. Stage 6 added
+content-based recommendation from MovieLens
 genre features. Stage 5 added matrix factorization,
 moving from item-item similarity to learned user and movie latent factors
 trained with SGD. Stage 4 added item-based collaborative filtering with
@@ -56,6 +57,7 @@ python scripts/train_matrix_factorization.py --eval-split valid
 python -m pytest tests/test_content.py -v
 python scripts/recommend_content.py --user-id 1 --n 10
 python -m pytest tests/test_supervised.py -v
+python scripts/train_supervised.py --eval-split valid
 python -m streamlit run app/main.py
 ```
 

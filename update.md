@@ -7,8 +7,9 @@ systems, neural networks, and reinforcement learning in one coherent product.
 
 ## Current Stage
 
-Stage 7 is starting supervised rating prediction from explicit user and
-movie features. Stage 6 added content-based recommendation from MovieLens
+Stage 7 added supervised rating prediction from explicit user and movie
+features plus training-only rating history aggregates. Stage 6 added
+content-based recommendation from MovieLens
 genre features. Stage 5 added matrix factorization,
 moving from item-item similarity to learned user and movie latent factors
 trained with SGD. Stage 4 added item-based collaborative filtering with
@@ -56,6 +57,7 @@ python scripts/train_matrix_factorization.py --eval-split valid
 python -m pytest tests/test_content.py -v
 python scripts/recommend_content.py --user-id 1 --n 10
 python -m pytest tests/test_supervised.py -v
+python scripts/train_supervised.py --eval-split valid
 python -m streamlit run app/main.py
 ```
 
@@ -89,3 +91,21 @@ the data boundary.
 - Added skipped tests for the next step-by-step supervised learning path.
 - Added Stage 07 documentation connecting explicit features to rating
   regression and model comparison.
+
+## 0.7.1 - 2026-07-20
+
+- Completed the Stage 07 supervised rating model pipeline with Ridge
+  regression.
+- Added training-only rating history features for user and item rating counts
+  plus mean ratings.
+- Added numeric imputation, standard scaling, categorical imputation, and
+  one-hot encoding in a scikit-learn pipeline.
+- Tuned Ridge alpha on the validation split and selected alpha=1.0 based on
+  RMSE.
+- Final Stage 07 results:
+  - Validation RMSE/MAE: 1.085629 / 0.862677
+  - Test RMSE/MAE: 1.043925 / 0.843649
+- Key learning: supervised models depend heavily on feature quality. Explicit
+  metadata and historical aggregates produced a competitive model, while
+  matrix factorization still performed better by learning latent user-item
+  interactions.
