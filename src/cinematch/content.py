@@ -48,10 +48,15 @@ def build_user_profile(
         return pd.Series(0.0, index=movie_features.columns, name="profile")
 
     rated_features = movie_features.loc[user_history["item_id"]]
-    rating_weights = user_history["rating"].to_numpy(dtype=float)
+    ratings_values = user_history["rating"].to_numpy(dtype=float)
+    centered_weights = ratings_values - ratings_values.mean()
+    normalizer = abs(centered_weights).sum()
 
-    weighted_features = rated_features.mul(rating_weights, axis=0)
-    profile = weighted_features.sum(axis=0) / rating_weights.sum()
+    if normalizer == 0:
+        return pd.Series(0.0, index=movie_features.columns, name="profile")
+
+    weighted_features = rated_features.mul(centered_weights, axis=0)
+    profile = weighted_features.sum(axis=0) / normalizer
 
     return profile.rename("profile")
 

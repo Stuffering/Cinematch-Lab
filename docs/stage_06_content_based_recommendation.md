@@ -79,6 +79,9 @@ To run content-based recommendations on the prepared MovieLens data:
 python scripts/recommend_content.py --user-id 1 --n 10
 ```
 
+The script also prints the strongest positive and negative genre preferences
+from the centered user profile so recommendations are easier to explain.
+
 The first target is not to beat matrix factorization. The first target is to
 make feature-based recommendations explainable:
 

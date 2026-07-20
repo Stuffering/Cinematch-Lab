@@ -56,7 +56,29 @@ def test_build_user_profile_weights_features_by_rating() -> None:
 
     profile = build_user_profile(ratings, movie_features, user_id=1)
 
-    assert profile["Action"] > profile["Comedy"]
+    assert profile["Action"] > 0
+    assert profile["Comedy"] < 0
+
+
+def test_build_user_profile_returns_zero_without_preference_signal() -> None:
+    ratings = pd.DataFrame(
+        {
+            "user_id": [1, 1],
+            "item_id": [10, 20],
+            "rating": [4, 4],
+        }
+    )
+    movie_features = pd.DataFrame(
+        {
+            "Action": [1, 0],
+            "Comedy": [0, 1],
+        },
+        index=[10, 20],
+    )
+
+    profile = build_user_profile(ratings, movie_features, user_id=1)
+
+    assert profile.tolist() == [0.0, 0.0]
 
 
 def test_recommend_content_based_excludes_already_rated_movies() -> None:
