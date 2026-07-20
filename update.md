@@ -1,100 +1,111 @@
-# Stage 06 - Content-Based Recommendation
+# CineMatch Lab
 
-This stage adds content-based recommendation to CineMatch Lab.
+CineMatch Lab is an offline movie recommendation and user behavior analysis
+project built with MovieLens 100K. It is developed in verified stages and will
+combine supervised learning, clustering, anomaly detection, recommender
+systems, neural networks, and reinforcement learning in one coherent product.
 
-The model idea is:
+## Current Stage
 
-```text
-Recommend movies whose content features match a user's historical preferences.
-```
+Stage 7 added supervised rating prediction from explicit user and movie
+features plus training-only rating history aggregates. Stage 6 added
+content-based recommendation from MovieLens
+genre features. Stage 5 added matrix factorization,
+moving from item-item similarity to learned user and movie latent factors
+trained with SGD. Stage 4 added item-based collaborative filtering with
+user-item matrices, centered rating vectors, cosine similarity, similar-movie
+lookup, user-level recommendations, and item-CF rating evaluation.
 
-Stage 04 used item-item collaborative similarity from rating behavior. Stage 05
-learned latent user and movie factors from rating errors. Stage 06 returns to
-explicit movie metadata, starting with MovieLens genre columns.
+## Environment Setup
 
-## Goal
-
-Build a content-based recommender that:
-
-1. Extracts movie genre feature vectors.
-2. Builds a user preference profile from movies the user has rated.
-3. Scores unseen movies by matching movie features to the user profile.
-4. Compares content-based recommendations with collaborative approaches.
-
-## Learning Path
-
-1. Identify genre feature columns in the movies table.
-2. Build a movie-feature matrix indexed by `movie_id`.
-3. Convert one user's rating history into a weighted genre preference profile.
-4. Score candidate movies with a dot product or cosine similarity.
-5. Exclude movies the user has already rated.
-6. Return ranked recommendations with movie titles.
-7. Compare the strengths and weaknesses of content-based and collaborative
-   filtering.
-
-## Concepts
-
-### Explicit Features
-
-Unlike latent factors, genre columns are visible metadata:
-
-```text
-Action, Comedy, Drama, Sci-Fi, ...
-```
-
-The model does not need other users to rate the same movies to make a
-recommendation. It can recommend from movie attributes directly.
-
-### User Profile
-
-A user profile summarizes what kinds of movie features a user tends to like.
-For example, if a user gives high ratings to `Sci-Fi` and `Action` movies, the
-profile should assign higher weight to those genres.
-
-### Content Score
-
-The simplest score is a dot product:
-
-```text
-score(user, movie) = dot(user_profile, movie_features)
-```
-
-Higher scores mean the movie's explicit content features better match the
-user's learned profile.
-
-## Acceptance Checks
-
-Run the content-based recommendation tests:
+The environment is stored inside this project so initialization does not write
+project content elsewhere.
 
 ```bash
-python -m pytest tests/test_content.py -v
-python -m pytest tests/test_recommend_content.py -v
-python -m pytest -q
+cd "/Users/qianjiangyue/Desktop/Study Zone/个人项目"
+conda env create --prefix ./.conda/envs/cinematch-lab --file environment.yml
+conda activate "$(pwd)/.conda/envs/cinematch-lab"
+```
+
+For later dependency changes:
+
+```bash
+conda env update --prefix ./.conda/envs/cinematch-lab --file environment.yml --prune
+```
+
+## Download Data
+
+```bash
+python scripts/download_movielens.py
+```
+
+The command is idempotent: when the expected files already exist, it exits
+without replacing them. MovieLens data is generated under `data/raw` and is
+not committed to Git.
+
+## Verify and Run
+
+```bash
+python -c "import cinematch; print(cinematch.__version__)"
+python -m pytest
 python -m ruff check .
+python scripts/find_similar_movies.py --item-id 50 --n 10
+python scripts/recommend_movies.py --user-id 1 --n 10
+python scripts/evaluate_item.py --eval-split valid
+python -m pytest tests/test_matrix_factorization.py -v
+python scripts/train_matrix_factorization.py --eval-split valid
+python -m pytest tests/test_content.py -v
+python scripts/recommend_content.py --user-id 1 --n 10
+python -m pytest tests/test_supervised.py -v
+python scripts/train_supervised.py --eval-split valid
+python -m streamlit run app/main.py
 ```
 
-To run content-based recommendations on the prepared MovieLens data:
+The Streamlit application is then available at `http://localhost:8501`.
+
+## Development Workflow
+
+Each stage follows the same loop: read the referenced notes, implement the
+student-owned core logic, run tests, review results, commit the completed stage,
+and record meaningful decisions in `update.md`.
+
+Development-only learning markers are removed before portfolio submission:
 
 ```bash
-python scripts/recommend_content.py --user-id 1 --n 10
+python scripts/check_submission.py
 ```
 
-The script also prints the strongest positive and negative genre preferences
-from the centered user profile so recommendations are easier to explain.
+## Data Entities
 
-The first target is not to beat matrix factorization. The first target is to
-make feature-based recommendations explainable:
-
-```text
-This movie is recommended because the user tends to like these genres.
-```
+Project modules use stable identifiers and fields: `user_id`, `item_id`,
+`rating`, `timestamp`, and movie metadata. Dataset-specific parsing stays at
+the data boundary.
 
 
-## 0.6.2 - 2026-07-20
+## 0.7.0 - 2026-07-20
 
-- Updated content-based user profiles to use centered ratings, so genres from
-  above-average movies become positive preferences and genres from below-average
-  movies become negative preferences.
-- Added profile explanation output to `scripts/recommend_content.py`, including
-  the strongest positive and negative genres for the selected user.
-- Added tests for zero-signal profiles and profile explanation summaries.
+- Started Stage 07 supervised rating models.
+- Added a supervised learning scaffold for joining ratings with user and movie
+  metadata, splitting features from targets, and identifying preprocessing
+  feature types.
+- Added skipped tests for the next step-by-step supervised learning path.
+- Added Stage 07 documentation connecting explicit features to rating
+  regression and model comparison.
+
+## 0.7.1 - 2026-07-20
+
+- Completed the Stage 07 supervised rating model pipeline with Ridge
+  regression.
+- Added training-only rating history features for user and item rating counts
+  plus mean ratings.
+- Added numeric imputation, standard scaling, categorical imputation, and
+  one-hot encoding in a scikit-learn pipeline.
+- Tuned Ridge alpha on the validation split and selected alpha=1.0 based on
+  RMSE.
+- Final Stage 07 results:
+  - Validation RMSE/MAE: 1.085629 / 0.862677
+  - Test RMSE/MAE: 1.043925 / 0.843649
+- Key learning: supervised models depend heavily on feature quality. Explicit
+  metadata and historical aggregates produced a competitive model, while
+  matrix factorization still performed better by learning latent user-item
+  interactions.
