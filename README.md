@@ -7,10 +7,11 @@ systems, neural networks, and reinforcement learning in one coherent product.
 
 ## Current Stage
 
-Stage 10 is starting neural rating prediction with TensorFlow/Keras. Stage 9
-added anomaly detection for unusual user behavior. Stage 8 added unsupervised
-user clustering from rating behavior and user metadata. Stage 7 added
-supervised rating prediction from explicit user
+Stage 11 is starting a hybrid recommendation system that blends multiple
+recommendation sources. Stage 10 added neural rating prediction with
+TensorFlow/Keras. Stage 9 added anomaly detection for unusual user behavior.
+Stage 8 added unsupervised user clustering from rating behavior and user
+metadata. Stage 7 added supervised rating prediction from explicit user
 and movie features plus training-only rating history aggregates. Stage 6 added
 content-based recommendation from MovieLens
 genre features. Stage 5 added matrix factorization,
@@ -67,6 +68,8 @@ python -m pytest tests/test_anomaly.py -v
 python scripts/detect_anomalies.py --contamination 0.05 --n 20
 python -m pytest tests/test_neural.py -v
 python scripts/train_neural.py --eval-split valid --epochs 20
+python -m pytest tests/test_hybrid.py -v
+python scripts/recommend_hybrid.py --user-id 1 --n 10
 python -m streamlit run app/main.py
 ```
 
