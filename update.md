@@ -7,9 +7,10 @@ systems, neural networks, and reinforcement learning in one coherent product.
 
 ## Current Stage
 
-Stage 9 added anomaly detection for unusual user behavior. Stage 8 added
-unsupervised user clustering from rating behavior and user metadata. Stage 7
-added supervised rating prediction from explicit user
+Stage 10 is starting neural rating prediction with TensorFlow/Keras. Stage 9
+added anomaly detection for unusual user behavior. Stage 8 added unsupervised
+user clustering from rating behavior and user metadata. Stage 7 added
+supervised rating prediction from explicit user
 and movie features plus training-only rating history aggregates. Stage 6 added
 content-based recommendation from MovieLens
 genre features. Stage 5 added matrix factorization,
@@ -64,6 +65,7 @@ python -m pytest tests/test_clustering.py -v
 python scripts/cluster_users.py --n-clusters 4
 python -m pytest tests/test_anomaly.py -v
 python scripts/detect_anomalies.py --contamination 0.05 --n 20
+python -m pytest tests/test_neural.py -v
 python -m streamlit run app/main.py
 ```
 
@@ -169,3 +171,13 @@ the data boundary.
 - Key learning: anomaly_score provides a continuous ranking of unusual users,
   while contamination controls where that ranking is thresholded into
   is_anomaly labels.
+
+## 0.10.0 - 2026-07-20
+
+- Started Stage 10 neural rating models.
+- Added a neural modeling scaffold for user/item ID mappings, interaction
+  encoding, and Keras rating model construction.
+- Added skipped tests for the next step-by-step neural recommendation learning
+  path.
+- Added Stage 10 documentation connecting manual matrix factorization to
+  TensorFlow/Keras embedding models.
