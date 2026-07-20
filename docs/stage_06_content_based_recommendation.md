@@ -64,13 +64,19 @@ user's learned profile.
 
 ## Acceptance Checks
 
-Stage 06 starts with a learning scaffold. Unskip and complete tests as each
-piece is implemented:
+Run the content-based recommendation tests:
 
 ```bash
 python -m pytest tests/test_content.py -v
+python -m pytest tests/test_recommend_content.py -v
 python -m pytest -q
 python -m ruff check .
+```
+
+To run content-based recommendations on the prepared MovieLens data:
+
+```bash
+python scripts/recommend_content.py --user-id 1 --n 10
 ```
 
 The first target is not to beat matrix factorization. The first target is to

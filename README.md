@@ -53,6 +53,7 @@ python scripts/evaluate_item.py --eval-split valid
 python -m pytest tests/test_matrix_factorization.py -v
 python scripts/train_matrix_factorization.py --eval-split valid
 python -m pytest tests/test_content.py -v
+python scripts/recommend_content.py --user-id 1 --n 10
 python -m streamlit run app/main.py
 ```
 

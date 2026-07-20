@@ -1,5 +1,4 @@
 import pandas as pd
-import pytest
 
 from cinematch.content import (
     build_movie_feature_matrix,
@@ -9,7 +8,6 @@ from cinematch.content import (
 )
 
 
-@pytest.mark.skip(reason="Stage 06 learning step: identify genre columns")
 def test_get_genre_columns_excludes_movie_metadata() -> None:
     movies = pd.DataFrame(
         {
@@ -24,7 +22,6 @@ def test_get_genre_columns_excludes_movie_metadata() -> None:
     assert get_genre_columns(movies) == ["Action", "Comedy"]
 
 
-@pytest.mark.skip(reason="Stage 06 learning step: build movie feature matrix")
 def test_build_movie_feature_matrix_indexes_by_movie_id() -> None:
     movies = pd.DataFrame(
         {
@@ -41,7 +38,6 @@ def test_build_movie_feature_matrix_indexes_by_movie_id() -> None:
     assert features.columns.tolist() == ["Action", "Comedy"]
 
 
-@pytest.mark.skip(reason="Stage 06 learning step: build user profile")
 def test_build_user_profile_weights_features_by_rating() -> None:
     ratings = pd.DataFrame(
         {
@@ -63,7 +59,6 @@ def test_build_user_profile_weights_features_by_rating() -> None:
     assert profile["Action"] > profile["Comedy"]
 
 
-@pytest.mark.skip(reason="Stage 06 learning step: recommend unseen movies")
 def test_recommend_content_based_excludes_already_rated_movies() -> None:
     ratings = pd.DataFrame(
         {

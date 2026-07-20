@@ -156,3 +156,13 @@
 - Added skipped tests for the next step-by-step implementation path.
 - Added Stage 06 documentation connecting explicit movie metadata to
   recommendation scoring.
+
+## 0.6.1 - 2026-07-20
+
+- Implemented the first content-based recommendation workflow using MovieLens
+  genre features.
+- Added movie feature matrix construction, user genre-profile generation, and
+  unseen movie scoring with content-feature dot products.
+- Added `scripts/recommend_content.py` for real-data content-based movie
+  recommendations.
+- Added script-level tests for content recommendations with titles and scores.
