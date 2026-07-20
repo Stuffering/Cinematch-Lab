@@ -147,3 +147,12 @@
   `learning_rate=0.02`, `regularization=0.10`, and `n_epochs=60`.
 - Verified the final matrix factorization model on the test split with RMSE
   1.030065 and MAE 0.828554.
+
+## 0.6.0 - 2026-07-20
+
+- Started Stage 06 content-based recommendation.
+- Added a learning scaffold for genre-column detection, movie feature matrix
+  construction, user content profiles, and content-based recommendations.
+- Added skipped tests for the next step-by-step implementation path.
+- Added Stage 06 documentation connecting explicit movie metadata to
+  recommendation scoring.

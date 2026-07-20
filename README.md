@@ -7,12 +7,12 @@ systems, neural networks, and reinforcement learning in one coherent product.
 
 ## Current Stage
 
-Stage 5 adds matrix factorization, moving from item-item similarity to learned
-user and movie latent factors trained with SGD. Stage 4 added item-based
-collaborative filtering with user-item matrices, centered rating vectors,
-cosine similarity, similar-movie lookup, user-level recommendations, and
-item-CF rating evaluation. Stage 3 added the first rating-prediction baseline
-layer with RMSE/MAE, global mean, user mean, item mean, and bias baselines.
+Stage 6 is starting content-based recommendation from explicit movie metadata,
+beginning with MovieLens genre features. Stage 5 added matrix factorization,
+moving from item-item similarity to learned user and movie latent factors
+trained with SGD. Stage 4 added item-based collaborative filtering with
+user-item matrices, centered rating vectors, cosine similarity, similar-movie
+lookup, user-level recommendations, and item-CF rating evaluation.
 
 ## Environment Setup
 
@@ -52,6 +52,7 @@ python scripts/recommend_movies.py --user-id 1 --n 10
 python scripts/evaluate_item.py --eval-split valid
 python -m pytest tests/test_matrix_factorization.py -v
 python scripts/train_matrix_factorization.py --eval-split valid
+python -m pytest tests/test_content.py -v
 python -m streamlit run app/main.py
 ```
 
