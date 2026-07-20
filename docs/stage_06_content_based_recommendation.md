@@ -88,13 +88,3 @@ make feature-based recommendations explainable:
 ```text
 This movie is recommended because the user tends to like these genres.
 ```
-
-
-## 0.6.2 - 2026-07-20
-
-- Updated content-based user profiles to use centered ratings, so genres from
-  above-average movies become positive preferences and genres from below-average
-  movies become negative preferences.
-- Added profile explanation output to `scripts/recommend_content.py`, including
-  the strongest positive and negative genres for the selected user.
-- Added tests for zero-signal profiles and profile explanation summaries.
