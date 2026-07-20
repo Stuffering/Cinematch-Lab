@@ -66,6 +66,7 @@ python scripts/cluster_users.py --n-clusters 4
 python -m pytest tests/test_anomaly.py -v
 python scripts/detect_anomalies.py --contamination 0.05 --n 20
 python -m pytest tests/test_neural.py -v
+python scripts/train_neural.py --eval-split valid --epochs 20
 python -m streamlit run app/main.py
 ```
 

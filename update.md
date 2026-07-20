@@ -181,3 +181,19 @@ the data boundary.
   path.
 - Added Stage 10 documentation connecting manual matrix factorization to
   TensorFlow/Keras embedding models.
+
+## 0.10.1 - 2026-07-20
+
+- Completed the Stage 10 minimal neural embedding rating model.
+- Implemented user/item interaction mappings, encoded neural model inputs, and
+  built a Keras embedding-dot-product model.
+- Added a neural training script for prepared validation and test splits.
+- Used 20 epochs, embedding_dim=16, and batch_size=256 for the selected run.
+- Final Stage 10 known-subset results:
+  - Validation RMSE/MAE: approximately 1.02 / 0.805 on 3,374 known interactions
+  - Test RMSE/MAE: approximately 1.06 / 0.847 on 1,837 known interactions
+- Key learning: the minimal Keras model is effectively matrix factorization
+  expressed with embedding layers and TensorFlow-managed optimization.
+- Important limitation: the current neural model only evaluates users/items
+  seen in training, so metrics are known-subset metrics rather than full-split
+  metrics.

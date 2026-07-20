@@ -58,6 +58,32 @@ inputs -> embedding layers -> interaction representation -> rating prediction
 The first neural model should stay intentionally small. The purpose is to learn
 the workflow before adding hidden layers or complex architecture.
 
+### Known-Subset Evaluation
+
+The first neural embedding model only creates vectors for users and items seen
+in `ratings_train.csv`. Evaluation rows with unseen users or unseen items are
+filtered out before prediction. This makes the reported metrics known-subset
+metrics rather than full-split metrics.
+
+The selected Stage 10 run used:
+
+```text
+embedding_dim=16
+epochs=20
+batch_size=256
+```
+
+Observed results:
+
+```text
+valid RMSE/MAE: approximately 1.02 / 0.805 on 3,374 known interactions
+test  RMSE/MAE: approximately 1.06 / 0.847 on 1,837 known interactions
+```
+
+This confirms that the embedding model can learn useful user-item interaction
+patterns, while also exposing the cold-start limitation of pure ID embedding
+models.
+
 ## Acceptance Checks
 
 Stage 10 starts with a learning scaffold. Unskip and complete tests as each
@@ -65,6 +91,7 @@ piece is implemented:
 
 ```bash
 python -m pytest tests/test_neural.py -v
+python scripts/train_neural.py --eval-split valid --epochs 20
 python -m pytest -q
 python -m ruff check .
 ```

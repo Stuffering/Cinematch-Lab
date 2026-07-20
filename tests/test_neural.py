@@ -1,5 +1,4 @@
 import pandas as pd
-import pytest
 
 from cinematch.neural import (
     build_interaction_mappings,
@@ -8,7 +7,6 @@ from cinematch.neural import (
 )
 
 
-@pytest.mark.skip(reason="Stage 10 learning step: build interaction mappings")
 def test_build_interaction_mappings_are_contiguous() -> None:
     ratings = pd.DataFrame(
         {
@@ -24,7 +22,6 @@ def test_build_interaction_mappings_are_contiguous() -> None:
     assert item_to_index == {100: 0, 200: 1}
 
 
-@pytest.mark.skip(reason="Stage 10 learning step: encode interactions")
 def test_encode_interactions_returns_features_and_target() -> None:
     ratings = pd.DataFrame(
         {
@@ -47,7 +44,6 @@ def test_encode_interactions_returns_features_and_target() -> None:
     assert target.tolist() == [5, 3]
 
 
-@pytest.mark.skip(reason="Stage 10 learning step: build Keras rating model")
 def test_build_neural_rating_model_compiles() -> None:
     model = build_neural_rating_model(
         n_users=2,
