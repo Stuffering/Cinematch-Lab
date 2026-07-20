@@ -20,7 +20,6 @@ def test_matrix_factorization_model_stores_configuration() -> None:
     assert model.random_state == 123
 
 
-@pytest.mark.skip(reason="Stage 05 TODO(student): implement fit mappings")
 def test_fit_learns_user_and_item_mappings() -> None:
     ratings = pd.DataFrame(
         {
@@ -37,7 +36,6 @@ def test_fit_learns_user_and_item_mappings() -> None:
     assert model.item_index_ == {10: 0, 20: 1}
 
 
-@pytest.mark.skip(reason="Stage 05 TODO(student): implement prediction")
 def test_predict_returns_aligned_series() -> None:
     ratings = pd.DataFrame(
         {
@@ -62,7 +60,36 @@ def test_predict_returns_aligned_series() -> None:
     assert len(predictions) == 2
 
 
-@pytest.mark.skip(reason="Stage 05 TODO(student): implement SGD training")
+def test_predict_rejects_unfitted_model() -> None:
+    rows_to_predict = pd.DataFrame({"user_id": [1], "item_id": [10]})
+    model = MatrixFactorizationModel()
+
+    with pytest.raises(ValueError, match="not been fitted"):
+        model.predict(rows_to_predict)
+
+
+def test_predict_falls_back_for_unknown_user_or_item() -> None:
+    ratings = pd.DataFrame(
+        {
+            "user_id": [1, 1, 2],
+            "item_id": [10, 20, 10],
+            "rating": [5, 3, 4],
+        }
+    )
+    rows_to_predict = pd.DataFrame(
+        {
+            "user_id": [1, 999],
+            "item_id": [999, 20],
+        }
+    )
+
+    model = MatrixFactorizationModel(n_factors=2, n_epochs=2).fit(ratings)
+    predictions = model.predict(rows_to_predict)
+
+    assert predictions.between(1.0, 5.0).all()
+    assert len(predictions) == 2
+
+
 def test_matrix_factorization_can_overfit_tiny_pattern() -> None:
     ratings = pd.DataFrame(
         {

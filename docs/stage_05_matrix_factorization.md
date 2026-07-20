@@ -90,8 +90,7 @@ the direction that reduces that error.
 
 ## Acceptance Checks
 
-The first Stage 05 file is a scaffold. Unskip and complete tests step by step
-as each piece of the model is implemented:
+Run the unit tests and full project checks:
 
 ```bash
 python -m pytest tests/test_matrix_factorization.py -v
@@ -99,14 +98,56 @@ python -m pytest -q
 python -m ruff check .
 ```
 
-Once the training script is added, compare with the current strongest baseline:
+Train and evaluate the selected matrix factorization configuration:
 
-```text
-Stage 03 bias baseline valid RMSE: 1.089829
-Stage 03 bias baseline test RMSE:  1.032749
-Stage 04 item-CF valid RMSE:       1.177426
-Stage 04 item-CF test RMSE:        1.110922
+```bash
+python scripts/train_matrix_factorization.py --eval-split valid
+python scripts/train_matrix_factorization.py --eval-split test
 ```
 
-Stage 05 should first aim to beat the validation RMSE of the Stage 03 bias
-baseline before treating matrix factorization as a useful improvement.
+The script defaults to the selected validation configuration:
+
+```text
+n_factors = 10
+learning_rate = 0.02
+regularization = 0.10
+n_epochs = 60
+```
+
+## Results
+
+Stage 05 was tuned on `ratings_valid.csv`, then checked once on
+`ratings_test.csv` after the validation choice was made.
+
+### Selected Matrix Factorization Model
+
+```text
+ split  rows     rmse      mae
+ valid 20000 1.082666 0.857215
+  test 20000 1.030065 0.828554
+```
+
+### Baseline Comparison
+
+```text
+ model                   valid_rmse  valid_mae  test_rmse  test_mae
+ Stage 03 bias baseline    1.089829   0.858936   1.032749  0.824633
+ Stage 04 item-CF          1.177426   0.966152   1.110922  0.931586
+ Stage 05 matrix factors   1.082666   0.857215   1.030065  0.828554
+```
+
+Stage 05 becomes the strongest current model by RMSE on both validation and
+test splits. The Stage 03 bias baseline still has slightly better test MAE,
+which means matrix factorization reduces larger squared errors more effectively
+but does not dominate every average-error metric.
+
+### Tuning Notes
+
+- `n_factors=10` was better than 5, 20, or 40 factors under the selected
+  training setup.
+- `learning_rate=0.02` learned faster and reached a better validation RMSE than
+  0.005, 0.01, or 0.03.
+- `n_epochs=60` was the best checked point before validation RMSE flattened or
+  began to rise slightly.
+- `regularization=0.10` was the best RMSE setting, while `0.08` had nearly
+  identical MAE. RMSE remains the main model-selection metric for this stage.
