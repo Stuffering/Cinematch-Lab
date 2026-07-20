@@ -8,7 +8,21 @@ st.set_page_config(page_title="CineMatch Lab", page_icon="🎬", layout="wide")
 
 st.title("CineMatch Lab")
 st.caption(f"Version {__version__}")
-st.write("Offline movie recommendation and user behavior analysis")
+st.write("Offline movie recommendation and user behavior analysis.")
 
-st.info("Stage 1 is ready. Model features will be added in later stages.")
+st.markdown(
+    """
+    CineMatch Lab includes:
 
+    - Classical recommendation methods: item-CF, matrix factorization,
+      content-based, and hybrid recommendation
+    - Predictive models: supervised Ridge regression and neural embeddings
+    - User behavior analysis: clustering and anomaly detection
+    - Engineering workflow: recommendation strategy routing and reusable model artifacts
+    """
+)
+
+st.info(
+    "Run the project scripts from the command line for full model training "
+    "and evaluation workflows."
+)

@@ -255,3 +255,17 @@ the data boundary.
   and evaluates it without retraining.
 - Added Stage 13 documentation explaining why artifact persistence separates
   training from later model reuse.
+
+## 0.14.0 - 2026-07-20
+
+- Started final validation and portfolio packaging.
+- Ran full project validation:
+  - `python -m pytest`: 81 tests passed
+  - `python -m ruff check .`: all checks passed
+  - `python scripts/check_submission.py`: no development-only markers found
+- Reworked the README into a final project overview with scope, selected
+  results, core validation commands, model artifact usage, and demonstration
+  flow.
+- Updated the Streamlit landing page so it reflects the completed project
+  rather than the initial Stage 1 placeholder.
+- Added final validation documentation for review and handoff.
