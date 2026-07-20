@@ -12,6 +12,7 @@ from sklearn.linear_model import Ridge
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import OneHotEncoder, StandardScaler
 
+from cinematch.artifacts import save_model_artifact
 from cinematch.metrics import mae, rmse
 from cinematch.supervised import (
     add_rating_history_features,
@@ -56,6 +57,12 @@ def main() -> None:
         type=int,
         default=None,
         help="Optional number of evaluation rows for quick local checks",
+    )
+    parser.add_argument(
+        "--model-output",
+        type=Path,
+        default=None,
+        help="Optional path where the trained model artifact will be saved",
     )
     args = parser.parse_args()
 
@@ -141,6 +148,19 @@ def main() -> None:
     }
 
     print(pd.DataFrame([result]).to_string(index=False))
+
+    if args.model_output is not None:
+        artifact = {
+            "model": model,
+            "metadata": result,
+            "feature_columns": x_train.columns.tolist(),
+            "target_column": "rating",
+        }
+        artifact_path = save_model_artifact(
+            artifact=artifact,
+            path=args.model_output,
+        )
+        print(f"Saved model artifact to {artifact_path}")
 
 
 if __name__ == "__main__":
