@@ -1,5 +1,4 @@
 import pandas as pd
-import pytest
 
 from cinematch.anomaly import (
     build_user_anomaly_features,
@@ -7,7 +6,6 @@ from cinematch.anomaly import (
 )
 
 
-@pytest.mark.skip(reason="Stage 09 learning step: build user anomaly features")
 def test_build_user_anomaly_features_summarizes_unusual_behavior() -> None:
     ratings = pd.DataFrame(
         {
@@ -24,7 +22,6 @@ def test_build_user_anomaly_features_summarizes_unusual_behavior() -> None:
     assert features.loc[1, "rating_std"] > 0
 
 
-@pytest.mark.skip(reason="Stage 09 learning step: detect user anomalies")
 def test_detect_user_anomalies_flags_expected_number_of_users() -> None:
     features = pd.DataFrame(
         {

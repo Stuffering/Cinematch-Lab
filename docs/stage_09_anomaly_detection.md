@@ -54,6 +54,21 @@ detection needs careful interpretation rather than RMSE-style evaluation.
 The first acceptance target is therefore a stable workflow and interpretable
 feature output, not a single "best" accuracy score.
 
+Stage 09 uses `contamination=0.05` as the default. In the training split this
+flags 30 anomalies out of 590 users. Smaller contamination values keep only the
+most extreme users, while larger values include more borderline cases.
+
+The comparison was:
+
+```text
+contamination=0.01 -> 6 anomalies out of 590 users
+contamination=0.05 -> 30 anomalies out of 590 users
+contamination=0.10 -> 59 anomalies out of 590 users
+```
+
+The highest-scoring anomalies include low-information users, all-5-rating
+users, very harsh raters, high-volume raters, and high-rating stable users.
+
 ## Acceptance Checks
 
 Stage 09 starts with a learning scaffold. Unskip and complete tests as each
@@ -61,6 +76,7 @@ piece is implemented:
 
 ```bash
 python -m pytest tests/test_anomaly.py -v
+python scripts/detect_anomalies.py --contamination 0.05 --n 20
 python -m pytest -q
 python -m ruff check .
 ```

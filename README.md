@@ -7,7 +7,7 @@ systems, neural networks, and reinforcement learning in one coherent product.
 
 ## Current Stage
 
-Stage 9 is starting anomaly detection for unusual user behavior. Stage 8 added
+Stage 9 added anomaly detection for unusual user behavior. Stage 8 added
 unsupervised user clustering from rating behavior and user metadata. Stage 7
 added supervised rating prediction from explicit user
 and movie features plus training-only rating history aggregates. Stage 6 added
@@ -63,6 +63,7 @@ python scripts/train_supervised.py --eval-split valid
 python -m pytest tests/test_clustering.py -v
 python scripts/cluster_users.py --n-clusters 4
 python -m pytest tests/test_anomaly.py -v
+python scripts/detect_anomalies.py --contamination 0.05 --n 20
 python -m streamlit run app/main.py
 ```
 
