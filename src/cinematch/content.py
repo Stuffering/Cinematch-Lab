@@ -13,6 +13,7 @@ def get_genre_columns(movies: pd.DataFrame) -> list[str]:
         "release_date",
         "video_release_date",
         "imdb_url",
+        "poster_url",
     }
 
     return [
