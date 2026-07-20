@@ -7,10 +7,11 @@ systems, neural networks, and reinforcement learning in one coherent product.
 
 ## Current Stage
 
-Stage 10 is starting neural rating prediction with TensorFlow/Keras. Stage 9
-added anomaly detection for unusual user behavior. Stage 8 added unsupervised
-user clustering from rating behavior and user metadata. Stage 7 added
-supervised rating prediction from explicit user
+Stage 11 is starting a hybrid recommendation system that blends multiple
+recommendation sources. Stage 10 added neural rating prediction with
+TensorFlow/Keras. Stage 9 added anomaly detection for unusual user behavior.
+Stage 8 added unsupervised user clustering from rating behavior and user
+metadata. Stage 7 added supervised rating prediction from explicit user
 and movie features plus training-only rating history aggregates. Stage 6 added
 content-based recommendation from MovieLens
 genre features. Stage 5 added matrix factorization,
@@ -197,3 +198,14 @@ the data boundary.
 - Important limitation: the current neural model only evaluates users/items
   seen in training, so metrics are known-subset metrics rather than full-split
   metrics.
+
+
+## 0.11.0 - 2026-07-20
+
+- Started Stage 11 hybrid recommendation system.
+- Added a hybrid recommendation scaffold for standardizing source outputs,
+  blending recommendation scores, and producing a unified ranked list.
+- Added skipped tests for the next step-by-step hybrid recommendation learning
+  path.
+- Added Stage 11 documentation connecting individual recommenders to a unified
+  recommendation interface.
