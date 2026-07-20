@@ -231,3 +231,14 @@ the data boundary.
 - Added skipped tests for the next step-by-step agent interface learning path.
 - Added Stage 12 documentation connecting recommender systems to tool
   orchestration and future model artifact serving.
+
+## 0.12.1 - 2026-07-20
+
+- Implemented the first recommendation agent router script.
+- Added automatic mode selection from user rating history:
+  - explicit requested modes are respected
+  - auto mode selects content for users without training ratings
+  - auto mode selects hybrid for users with training ratings
+- Connected the agent script to existing content, item-CF, and hybrid
+  recommendation paths.
+- Added tests for user rating history counting and agent request explanation.

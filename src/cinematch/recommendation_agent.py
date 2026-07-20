@@ -48,7 +48,16 @@ def build_recommendation_request(
     n: int = 10,
 ) -> RecommendationRequest:
     """Build a validated recommendation request."""
-    raise NotImplementedError("Stage 12: build a validated recommendation request")
+    if user_id <= 0:
+        raise ValueError("user_id must be a positive integer.")
+    if n <= 0:
+        raise ValueError("n must be a positive integer.")
+
+    return RecommendationRequest(
+        user_id=user_id,
+        mode=validate_recommendation_mode(mode),
+        n=n,
+    )
 
 
 def choose_recommendation_mode(
@@ -56,4 +65,12 @@ def choose_recommendation_mode(
     requested_mode: str = "auto",
 ) -> str:
     """Choose a recommendation mode from user context and request preference."""
-    raise NotImplementedError("Stage 12: choose a recommendation mode")
+    normalized_mode = requested_mode.strip().lower()
+
+    if normalized_mode != "auto":
+        return validate_recommendation_mode(normalized_mode)
+
+    if user_rating_count <= 0:
+        return "content"
+
+    return "hybrid"

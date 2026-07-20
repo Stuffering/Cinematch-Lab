@@ -73,6 +73,7 @@ python scripts/train_neural.py --eval-split valid --epochs 20
 python -m pytest tests/test_hybrid.py -v
 python scripts/recommend_hybrid.py --user-id 1 --n 10
 python -m pytest tests/test_recommendation_agent.py -v
+python scripts/recommend_agent.py --user-id 1 --mode auto --n 10
 python -m streamlit run app/main.py
 ```
 

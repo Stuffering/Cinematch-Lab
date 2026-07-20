@@ -67,5 +67,7 @@ piece is implemented:
 
 ```bash
 python -m pytest tests/test_recommendation_agent.py -v
-python -m ruff check src/cinematch/recommendation_agent.py tests/test_recommendation_agent.py
+python -m pytest tests/test_recommend_agent.py -v
+python scripts/recommend_agent.py --user-id 1 --mode auto --n 10
+python -m ruff check src/cinematch/recommendation_agent.py tests/test_recommendation_agent.py scripts/recommend_agent.py tests/test_recommend_agent.py
 ```
