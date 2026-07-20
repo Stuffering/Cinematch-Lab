@@ -7,8 +7,9 @@ systems, neural networks, and reinforcement learning in one coherent product.
 
 ## Current Stage
 
-Stage 8 is starting unsupervised user clustering from rating behavior and
-user metadata. Stage 7 added supervised rating prediction from explicit user
+Stage 9 is starting anomaly detection for unusual user behavior. Stage 8 added
+unsupervised user clustering from rating behavior and user metadata. Stage 7
+added supervised rating prediction from explicit user
 and movie features plus training-only rating history aggregates. Stage 6 added
 content-based recommendation from MovieLens
 genre features. Stage 5 added matrix factorization,
@@ -61,6 +62,7 @@ python -m pytest tests/test_supervised.py -v
 python scripts/train_supervised.py --eval-split valid
 python -m pytest tests/test_clustering.py -v
 python scripts/cluster_users.py --n-clusters 4
+python -m pytest tests/test_anomaly.py -v
 python -m streamlit run app/main.py
 ```
 
@@ -135,3 +137,12 @@ the data boundary.
   - 5 clusters silhouette score: 0.280
 - Selected 4 clusters as the Stage 08 default because it had the best
   silhouette score and produced interpretable user segments.
+
+## 0.9.0 - 2026-07-20
+
+- Started Stage 09 anomaly detection.
+- Added an anomaly detection scaffold for building user-level anomaly features
+  and flagging unusual user behavior.
+- Added skipped tests for the next step-by-step anomaly detection learning
+  path.
+- Added Stage 09 documentation connecting clustering to anomaly detection.
