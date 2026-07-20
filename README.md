@@ -7,8 +7,9 @@ systems, neural networks, and reinforcement learning in one coherent product.
 
 ## Current Stage
 
-Stage 12 is starting a recommendation agent interface that can validate
-recommendation modes and prepare user requests for future tool orchestration.
+Stage 12 is starting a recommendation strategy layer that can validate
+recommendation modes and prepare user requests for future model selection and
+recommendation routing.
 Stage 11 added a hybrid recommendation system that blends multiple
 recommendation sources. Stage 10 added neural rating prediction with
 TensorFlow/Keras. Stage 9 added anomaly detection for unusual user behavior.
@@ -72,8 +73,9 @@ python -m pytest tests/test_neural.py -v
 python scripts/train_neural.py --eval-split valid --epochs 20
 python -m pytest tests/test_hybrid.py -v
 python scripts/recommend_hybrid.py --user-id 1 --n 10
-python -m pytest tests/test_recommendation_agent.py -v
-python scripts/recommend_agent.py --user-id 1 --mode auto --n 10
+python -m pytest tests/test_recommendation_strategy.py -v
+python -m pytest tests/test_recommend_strategy.py -v
+python scripts/recommend_strategy.py --user-id 1 --mode auto --n 10
 python -m streamlit run app/main.py
 ```
 

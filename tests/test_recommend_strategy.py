@@ -1,7 +1,7 @@
 import pandas as pd
 
-from scripts.recommend_agent import (
-    build_agent_request_from_context,
+from scripts.recommend_strategy import (
+    build_strategy_request_from_context,
     count_user_ratings,
 )
 
@@ -19,8 +19,8 @@ def test_count_user_ratings_returns_training_history_size() -> None:
     assert count_user_ratings(ratings, user_id=99) == 0
 
 
-def test_build_agent_request_from_context_explains_auto_mode() -> None:
-    request, reason = build_agent_request_from_context(
+def test_build_strategy_request_from_context_explains_auto_mode() -> None:
+    request, reason = build_strategy_request_from_context(
         user_id=1,
         requested_mode="auto",
         n=5,

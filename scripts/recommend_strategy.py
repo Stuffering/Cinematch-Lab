@@ -1,4 +1,4 @@
-"""Recommend movies through a lightweight recommendation agent router."""
+"""Recommend movies through a lightweight recommendation strategy router."""
 
 from __future__ import annotations
 
@@ -14,7 +14,7 @@ from cinematch.collaborative import (
 )
 from cinematch.content import recommend_content_based
 from cinematch.hybrid import recommend_hybrid, standardize_recommendations
-from cinematch.recommendation_agent import (
+from cinematch.recommendation_strategy import (
     RecommendationRequest,
     build_recommendation_request,
     choose_recommendation_mode,
@@ -30,7 +30,7 @@ def count_user_ratings(ratings: pd.DataFrame, user_id: int) -> int:
     return int((ratings["user_id"] == user_id).sum())
 
 
-def build_agent_request_from_context(
+def build_strategy_request_from_context(
     user_id: int,
     requested_mode: str,
     n: int,
@@ -160,7 +160,7 @@ def recommend_for_request(
 
 
 def main() -> None:
-    """Run recommendation through the agent interface."""
+    """Run recommendation through the strategy interface."""
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
         "--processed-directory",
@@ -224,14 +224,14 @@ def main() -> None:
         ratings=ratings,
         user_id=args.user_id,
     )
-    request, reason = build_agent_request_from_context(
+    request, reason = build_strategy_request_from_context(
         user_id=args.user_id,
         requested_mode=args.mode,
         n=args.n,
         user_rating_count=user_rating_count,
     )
 
-    print(f"Recommendation agent request for user {request.user_id}")
+    print(f"Recommendation strategy request for user {request.user_id}")
     print(f"Requested mode: {args.mode}")
     print(f"Selected mode: {request.mode}")
     print(f"Reason: {reason}")

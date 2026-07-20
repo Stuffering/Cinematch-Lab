@@ -1,6 +1,6 @@
 import pytest
 
-from cinematch.recommendation_agent import (
+from cinematch.recommendation_strategy import (
     RecommendationRequest,
     build_recommendation_request,
     choose_recommendation_mode,

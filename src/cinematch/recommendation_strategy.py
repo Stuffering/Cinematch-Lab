@@ -1,4 +1,4 @@
-"""Recommendation agent interface utilities."""
+"""Recommendation strategy interface utilities."""
 
 from __future__ import annotations
 

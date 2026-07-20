@@ -1,7 +1,7 @@
-# Stage 12 - Recommendation Agent Interface
+# Stage 12 - Recommendation Strategy Layer
 
 This stage starts a recommendation interface that can be used by a future
-agentic product layer.
+recommendation product layer.
 
 The idea is:
 
@@ -11,7 +11,7 @@ User request -> recommendation mode decision -> recommender execution
 
 Earlier stages built individual recommendation and modeling capabilities.
 Stage 12 begins wrapping those capabilities behind a smaller decision interface
-so future UI or agent code does not need to know every implementation detail.
+so future UI or strategy code does not need to know every implementation detail.
 
 ## Goal
 
@@ -33,7 +33,7 @@ Build a repeatable recommendation interface that:
 
 ## Concepts
 
-### Why an Agent Interface?
+### Why a Strategy Layer?
 
 The earlier stages answer different technical questions:
 
@@ -44,14 +44,15 @@ hybrid: How can several recommendation sources be blended?
 neural: What rating might a learned embedding model predict?
 ```
 
-An agent interface answers a product question:
+A strategy layer answers a product question:
 
 ```text
 Given the user's request and context, which recommendation path should run?
 ```
 
-This is the beginning of tool orchestration. The agent layer should decide
-which existing capability to use instead of rewriting the recommender logic.
+This is the beginning of model selection and recommendation routing. The
+strategy layer should decide which existing capability to use instead of
+rewriting the recommender logic.
 
 ### Model Artifacts
 
@@ -66,8 +67,8 @@ Stage 12 starts with a learning scaffold. Unskip and complete tests as each
 piece is implemented:
 
 ```bash
-python -m pytest tests/test_recommendation_agent.py -v
-python -m pytest tests/test_recommend_agent.py -v
-python scripts/recommend_agent.py --user-id 1 --mode auto --n 10
-python -m ruff check src/cinematch/recommendation_agent.py tests/test_recommendation_agent.py scripts/recommend_agent.py tests/test_recommend_agent.py
+python -m pytest tests/test_recommendation_strategy.py -v
+python -m pytest tests/test_recommend_strategy.py -v
+python scripts/recommend_strategy.py --user-id 1 --mode auto --n 10
+python -m ruff check src/cinematch/recommendation_strategy.py tests/test_recommendation_strategy.py scripts/recommend_strategy.py tests/test_recommend_strategy.py
 ```
