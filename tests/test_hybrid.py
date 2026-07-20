@@ -1,5 +1,4 @@
 import pandas as pd
-import pytest
 
 from cinematch.hybrid import (
     blend_recommendations,
@@ -8,7 +7,6 @@ from cinematch.hybrid import (
 )
 
 
-@pytest.mark.skip(reason="Stage 11 learning step: standardize recommendation outputs")
 def test_standardize_recommendations_adds_source_and_renames_score() -> None:
     recommendations = pd.DataFrame(
         {
@@ -34,7 +32,6 @@ def test_standardize_recommendations_adds_source_and_renames_score() -> None:
     assert standardized["source_score"].tolist() == [0.9, 0.5]
 
 
-@pytest.mark.skip(reason="Stage 11 learning step: blend recommendations")
 def test_blend_recommendations_combines_weighted_sources() -> None:
     item_cf = pd.DataFrame(
         {
@@ -63,7 +60,6 @@ def test_blend_recommendations_combines_weighted_sources() -> None:
     assert blended.loc[0, "hybrid_score"] == 0.85
 
 
-@pytest.mark.skip(reason="Stage 11 learning step: build hybrid recommendations")
 def test_recommend_hybrid_returns_top_n_blended_movies() -> None:
     recommendations = [
         pd.DataFrame(

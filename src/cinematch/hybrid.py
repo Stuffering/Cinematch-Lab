@@ -11,7 +11,18 @@ def standardize_recommendations(
     score_column: str = "score",
 ) -> pd.DataFrame:
     """Convert recommendations into a common hybrid schema."""
-    raise NotImplementedError("Stage 11: standardize recommendation outputs")
+    standardized = recommendations[["movie_id", "title", score_column]].copy()
+    standardized = standardized.rename(columns={score_column: "source_score"})
+    standardized["source"] = source
+
+    return standardized[
+        [
+            "movie_id",
+            "title",
+            "source",
+            "source_score",
+        ]
+    ]
 
 
 def blend_recommendations(
@@ -20,7 +31,47 @@ def blend_recommendations(
     n: int = 10,
 ) -> pd.DataFrame:
     """Blend recommendation outputs from multiple sources."""
-    raise NotImplementedError("Stage 11: blend recommendation outputs")
+    if not recommendation_frames:
+        return pd.DataFrame(
+            columns=[
+                "movie_id",
+                "title",
+                "hybrid_score",
+            ]
+        )
+
+    combined = pd.concat(recommendation_frames, ignore_index=True)
+    if combined.empty:
+        return pd.DataFrame(
+            columns=[
+                "movie_id",
+                "title",
+                "hybrid_score",
+            ]
+        )
+
+    if source_weights is None:
+        source_weights = {}
+
+    combined["source_weight"] = combined["source"].map(source_weights).fillna(1.0)
+    combined["weighted_score"] = (
+        combined["source_score"] * combined["source_weight"]
+    )
+
+    blended = (
+        combined.groupby(["movie_id", "title"], as_index=False)["weighted_score"]
+        .sum()
+        .rename(columns={"weighted_score": "hybrid_score"})
+    )
+
+    return (
+        blended.sort_values(
+            ["hybrid_score", "movie_id"],
+            ascending=[False, True],
+        )
+        .head(n)
+        .reset_index(drop=True)
+    )
 
 
 def recommend_hybrid(
@@ -29,4 +80,8 @@ def recommend_hybrid(
     n: int = 10,
 ) -> pd.DataFrame:
     """Build a hybrid recommendation list from prepared recommendation frames."""
-    raise NotImplementedError("Stage 11: build hybrid recommendations")
+    return blend_recommendations(
+        recommendation_frames=recommendation_frames,
+        source_weights=source_weights,
+        n=n,
+    )

@@ -68,6 +68,7 @@ piece is implemented:
 
 ```bash
 python -m pytest tests/test_hybrid.py -v
+python scripts/recommend_hybrid.py --user-id 1 --n 10
 python -m pytest -q
 python -m ruff check .
 ```

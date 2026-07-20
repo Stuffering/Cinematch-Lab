@@ -209,3 +209,15 @@ the data boundary.
   path.
 - Added Stage 11 documentation connecting individual recommenders to a unified
   recommendation interface.
+
+## 0.11.1 - 2026-07-20
+
+- Completed the Stage 11 hybrid recommendation core workflow.
+- Implemented source output standardization, weighted score blending, and a
+  top-n hybrid recommendation wrapper.
+- Added a hybrid recommendation script that combines item-based collaborative
+  filtering and content-based recommendation candidates.
+- Added a runnable Stage 11 command to the README and stage documentation.
+- Key learning: the hybrid layer is an integration layer rather than a new
+  model. It gives the system one stable recommendation interface while keeping
+  source weights configurable for future agent-driven decision logic.

@@ -69,6 +69,7 @@ python scripts/detect_anomalies.py --contamination 0.05 --n 20
 python -m pytest tests/test_neural.py -v
 python scripts/train_neural.py --eval-split valid --epochs 20
 python -m pytest tests/test_hybrid.py -v
+python scripts/recommend_hybrid.py --user-id 1 --n 10
 python -m streamlit run app/main.py
 ```
 
