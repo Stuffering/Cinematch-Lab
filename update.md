@@ -242,3 +242,16 @@ the data boundary.
 - Connected the strategy script to existing content, item-CF, and hybrid
   recommendation paths.
 - Added tests for user rating history counting and strategy request explanation.
+
+## 0.13.0 - 2026-07-20
+
+- Started Stage 13 model artifacts.
+- Added artifact save/load utilities based on joblib.
+- Added tests for model artifact round trips and parent directory creation.
+- Extended the supervised training script with an optional `--model-output`
+  argument that saves the fitted Ridge pipeline, evaluation metadata, feature
+  columns, and target column.
+- Added a supervised artifact evaluation script that loads the saved pipeline
+  and evaluates it without retraining.
+- Added Stage 13 documentation explaining why artifact persistence separates
+  training from later model reuse.
