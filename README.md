@@ -60,6 +60,7 @@ python scripts/recommend_content.py --user-id 1 --n 10
 python -m pytest tests/test_supervised.py -v
 python scripts/train_supervised.py --eval-split valid
 python -m pytest tests/test_clustering.py -v
+python scripts/cluster_users.py --n-clusters 4
 python -m streamlit run app/main.py
 ```
 

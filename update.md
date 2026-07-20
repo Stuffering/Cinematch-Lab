@@ -60,6 +60,7 @@ python scripts/recommend_content.py --user-id 1 --n 10
 python -m pytest tests/test_supervised.py -v
 python scripts/train_supervised.py --eval-split valid
 python -m pytest tests/test_clustering.py -v
+python scripts/cluster_users.py --n-clusters 4
 python -m streamlit run app/main.py
 ```
 
@@ -120,3 +121,17 @@ the data boundary.
 - Added skipped tests for the next step-by-step clustering learning path.
 - Added Stage 08 documentation connecting supervised regression to
   unsupervised segmentation.
+- Implemented user-level clustering features from rating behavior:
+  - rating_count
+  - mean_rating
+- Joined user metadata so clustering profiles can include age and occupation.
+- Added KMeans user segment assignment with standardized numeric features.
+- Added silhouette scoring to compare clustering quality.
+- Added a user clustering script that reports clustering features, silhouette
+  score, segment profiles, and sample assignments.
+- Compared 3, 4, and 5 clusters:
+  - 3 clusters silhouette score: 0.300
+  - 4 clusters silhouette score: 0.307
+  - 5 clusters silhouette score: 0.280
+- Selected 4 clusters as the Stage 08 default because it had the best
+  silhouette score and produced interpretable user segments.

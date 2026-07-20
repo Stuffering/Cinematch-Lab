@@ -66,6 +66,31 @@ is the profile behind it, for example:
 frequent raters, high average ratings, action-heavy preferences
 ```
 
+### Cluster Evaluation
+
+Stage 08 uses silhouette score to compare candidate cluster counts. The score
+checks whether users are closer to their own segment than to other segments.
+This fits clustering better than prediction metrics such as RMSE because there
+is no ground-truth user segment label.
+
+The Stage 08 comparison was:
+
+```text
+3 clusters silhouette score: 0.300
+4 clusters silhouette score: 0.307
+5 clusters silhouette score: 0.280
+```
+
+The default is `n_clusters=4` because it has the best silhouette score among
+the tested options and gives interpretable user groups:
+
+```text
+older higher-rating users
+highly active users
+younger higher-rating users
+lower-rating users
+```
+
 ## Acceptance Checks
 
 Stage 08 starts with a learning scaffold. Unskip and complete tests as each
@@ -73,6 +98,7 @@ piece is implemented:
 
 ```bash
 python -m pytest tests/test_clustering.py -v
+python scripts/cluster_users.py --n-clusters 4
 python -m pytest -q
 python -m ruff check .
 ```
