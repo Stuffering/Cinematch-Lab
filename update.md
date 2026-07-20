@@ -7,9 +7,10 @@ systems, neural networks, and reinforcement learning in one coherent product.
 
 ## Current Stage
 
-Stage 9 added anomaly detection for unusual user behavior. Stage 8 added
-unsupervised user clustering from rating behavior and user metadata. Stage 7
-added supervised rating prediction from explicit user
+Stage 10 is starting neural rating prediction with TensorFlow/Keras. Stage 9
+added anomaly detection for unusual user behavior. Stage 8 added unsupervised
+user clustering from rating behavior and user metadata. Stage 7 added
+supervised rating prediction from explicit user
 and movie features plus training-only rating history aggregates. Stage 6 added
 content-based recommendation from MovieLens
 genre features. Stage 5 added matrix factorization,
@@ -64,6 +65,7 @@ python -m pytest tests/test_clustering.py -v
 python scripts/cluster_users.py --n-clusters 4
 python -m pytest tests/test_anomaly.py -v
 python scripts/detect_anomalies.py --contamination 0.05 --n 20
+python -m pytest tests/test_neural.py -v
 python -m streamlit run app/main.py
 ```
 
@@ -169,3 +171,29 @@ the data boundary.
 - Key learning: anomaly_score provides a continuous ranking of unusual users,
   while contamination controls where that ranking is thresholded into
   is_anomaly labels.
+
+## 0.10.0 - 2026-07-20
+
+- Started Stage 10 neural rating models.
+- Added a neural modeling scaffold for user/item ID mappings, interaction
+  encoding, and Keras rating model construction.
+- Added skipped tests for the next step-by-step neural recommendation learning
+  path.
+- Added Stage 10 documentation connecting manual matrix factorization to
+  TensorFlow/Keras embedding models.
+
+## 0.10.1 - 2026-07-20
+
+- Completed the Stage 10 minimal neural embedding rating model.
+- Implemented user/item interaction mappings, encoded neural model inputs, and
+  built a Keras embedding-dot-product model.
+- Added a neural training script for prepared validation and test splits.
+- Used 20 epochs, embedding_dim=16, and batch_size=256 for the selected run.
+- Final Stage 10 known-subset results:
+  - Validation RMSE/MAE: approximately 1.02 / 0.805 on 3,374 known interactions
+  - Test RMSE/MAE: approximately 1.06 / 0.847 on 1,837 known interactions
+- Key learning: the minimal Keras model is effectively matrix factorization
+  expressed with embedding layers and TensorFlow-managed optimization.
+- Important limitation: the current neural model only evaluates users/items
+  seen in training, so metrics are known-subset metrics rather than full-split
+  metrics.
