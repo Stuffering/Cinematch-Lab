@@ -221,3 +221,13 @@ the data boundary.
 - Key learning: the hybrid layer is an integration layer rather than a new
   model. It gives the system one stable recommendation interface while keeping
   source weights configurable for future agent-driven decision logic.
+
+## 0.12.0 - 2026-07-20
+
+- Started Stage 12 recommendation agent interface.
+- Added a recommendation agent scaffold for supported mode listing, mode
+  validation, structured recommendation requests, and future automatic mode
+  selection.
+- Added skipped tests for the next step-by-step agent interface learning path.
+- Added Stage 12 documentation connecting recommender systems to tool
+  orchestration and future model artifact serving.
