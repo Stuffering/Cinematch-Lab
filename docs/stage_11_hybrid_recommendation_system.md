@@ -21,7 +21,7 @@ Build a repeatable hybrid recommendation workflow that:
 2. Preserves each recommendation source for explainability.
 3. Blends scores with configurable source weights.
 4. Produces a single ranked recommendation list.
-5. Prepares the project for an agentic recommendation layer.
+5. Prepares the project for a recommendation strategy layer.
 
 ## Learning Path
 
@@ -29,7 +29,7 @@ Build a repeatable hybrid recommendation workflow that:
 2. Standardize source-specific recommendation outputs.
 3. Blend multiple sources with weights.
 4. Inspect how each source contributes to the final score.
-5. Decide how a future agent should choose source weights.
+5. Decide how a future strategy layer should choose source weights.
 
 ## Concepts
 
